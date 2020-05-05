@@ -13,7 +13,8 @@ CREATE TABLE public.posts (
 );
 CREATE TABLE public.ingredients (
   ingredient_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
-  ingredient_name VARCHAR NOT NULL
+  ingredient_name VARCHAR NOT NULL,
+  UNIQUE (ingredient_name)
 )
 CREATE TABLE public.recipe_ingredients (
   ingredient_id INT REFERENCES public.ingredients (ingredient_id),
