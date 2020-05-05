@@ -17,5 +17,8 @@ dbController.getPosts = (req, res, next) => {
     }
   )
 }
-
+dbController.makePost = (req, res, next) => {
+  const { username, postcontent } = req.body;
+  
+}
 module.exports = dbController;
