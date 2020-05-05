@@ -5,11 +5,16 @@ const authRoutes = require('./routes/auth-routes');
 const passportSetup = require('./config/passportSetup')
 const PORT = 3000;
 
+const postRouter = require("./routes/posts.js");
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 /* Endpoints */
+
+app.use("/posts", postRouter);
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/index.html'));
