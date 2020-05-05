@@ -1,0 +1,11 @@
+CREATE TABLE public.users (
+  user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
+  username VARCHAR NOT NULL UNIQUE,
+  pwd VARCHAR NOT NULL
+);
+CREATE TABLE public.posts (
+  post_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  post_content VARCHAR NOT NULL,
+  post_time TIMESTAMP NOT NULL,
+  user_id INT REFERENCES public.users (user_id)
+);
