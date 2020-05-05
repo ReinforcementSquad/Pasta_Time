@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const authRoutes = require('./routes/auth-routes');
+const passportSetup = require('./config/passportSetup')
 const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.resolve(__dirname, '../client')));
-
-
 
 /* Endpoints */
 
@@ -15,6 +15,12 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/index.html'));
 });
 
+
+/* Routes */
+
+app.use('/auth', authRoutes, (req, res) => {
+  res.send('hey')
+});
 
 /* Global error handlers */
 
