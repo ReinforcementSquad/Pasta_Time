@@ -1,8 +1,7 @@
 CREATE TABLE public.users (
   user_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
   username VARCHAR NOT NULL UNIQUE,
-  pwd VARCHAR NOT NULL,
-  google_id VARCHAR
+  pwd VARCHAR NOT NULL
 );
 CREATE TABLE public.posts (
   post_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -21,3 +20,15 @@ CREATE TABLE public.recipe_ingredients (
   post_id INT REFERENCES public.posts,
   amount VARCHAR NOT NULL
 )
+CREATE TABLE IF NOT EXISTS public.google (
+    id              SERIAL,
+    -- token           VARCHAR(100) NOT NULL,
+    google_id       VARCHAR(100) UNIQUE,
+    email           VARCHAR(100),
+    name            VARCHAR(100),
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES public.users
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    UNIQUE (id)
+);

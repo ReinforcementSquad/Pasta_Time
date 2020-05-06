@@ -2,7 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const authRoutes = require('./routes/auth-routes');
-const passportSetup = require('./config/passportSetup')
+const passportSetup = require('./config/passportSetup');
+const cookieSession = require('cookie-session');
+const keys = require('./config/keys');
+const passport = require('passport');
 const PORT = 3000;
 
 const postRouter = require("./routes/posts.js");
@@ -11,6 +14,16 @@ const postRouter = require("./routes/posts.js");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.resolve(__dirname, '../client')));
+
+/* Cookie Session */
+// app.use(cookieSession({
+//   maxAge: 24 * 60 * 60 * 1000, // 24 hour cookie
+//   keys:[keys.session.cookieKey]
+// }));
+
+/* Passport Initalize */
+app.use(passport.initialize());
+app.use(passport.session());
 
 /* Endpoints */
 
