@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS public.google (
     name            VARCHAR(100),
     PRIMARY KEY (google_id),
     -- FOREIGN KEY (id) REFERENCES public.users
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    -- ON DELETE CASCADE
+    -- ON UPDATE CASCADE,
     UNIQUE (google_id)
 );
