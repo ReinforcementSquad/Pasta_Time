@@ -30,22 +30,3 @@ passport.use(
             }
         });
 }));
-// console.log(profile)
-// console.log('profile id:', profile.id)
-// console.log('this is:',profile.displayName)
-// console.log('hey', res.local)
-// db.query = (
-//     `
-//     WITH insert_cte AS (
-//       INSERT INTO public.google (google_id, name)
-//       VALUES ($1, $2)
-//       ON CONFLICT (google_id) DO NOTHING
-//       RETURNING google_id, name
-//     )
-//     SELECT google_id, name FROM insert_cte
-//     UNION ALL
-//     SELECT google_id, name FROM public.google
-//     WHERE google_id = $1
-//     LIMIT 1;
-//    `
-// )

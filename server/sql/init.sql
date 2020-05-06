@@ -22,13 +22,9 @@ CREATE TABLE public.recipe_ingredients (
 );
 CREATE TABLE IF NOT EXISTS public.google (
     user_id         INT REFERENCES public.users (user_id),
-    -- token           VARCHAR(100) NOT NULL,
     google_id       VARCHAR(100),
     email           VARCHAR(100),
     name            VARCHAR(100),
     PRIMARY KEY (google_id),
-    -- FOREIGN KEY (id) REFERENCES public.users
-    -- ON DELETE CASCADE
-    -- ON UPDATE CASCADE,
     UNIQUE (google_id)
 );
