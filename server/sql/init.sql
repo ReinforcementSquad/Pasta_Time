@@ -14,21 +14,21 @@ CREATE TABLE public.ingredients (
   ingredient_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
   ingredient_name VARCHAR NOT NULL,
   UNIQUE (ingredient_name)
-)
+);
 CREATE TABLE public.recipe_ingredients (
   ingredient_id INT REFERENCES public.ingredients (ingredient_id),
   post_id INT REFERENCES public.posts,
   amount VARCHAR NOT NULL
-)
+);
 CREATE TABLE IF NOT EXISTS public.google (
-    id              SERIAL,
+    user_id         INT REFERENCES public.users (user_id),
     -- token           VARCHAR(100) NOT NULL,
-    google_id       VARCHAR(100) UNIQUE,
+    google_id       VARCHAR(100),
     email           VARCHAR(100),
     name            VARCHAR(100),
-    PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES public.users
+    PRIMARY KEY (google_id),
+    -- FOREIGN KEY (id) REFERENCES public.users
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-    UNIQUE (id)
+    UNIQUE (google_id)
 );
