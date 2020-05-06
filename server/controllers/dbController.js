@@ -13,11 +13,10 @@ dbController.getPosts = async (req, res, next) => {
       ,ingredients.ingredient_name
       ,recipe_ingredients.amount
       FROM public.users
-      JOIN public.posts ON users.user_id = posts.post_id
+      JOIN public.posts ON users.user_id = posts.user_id
       JOIN public.recipe_ingredients ON recipe_ingredients.post_id = posts.post_id
       JOIN public.ingredients ON ingredients.ingredient_id = recipe_ingredients.ingredient_id
       `
-      , []
     );
     dbResults = dbResults.rows;
     res.locals.dbResults = dbResults;
@@ -61,12 +60,13 @@ dbController.makePost = async (req, res, next) => {
     let userId = await db.query(
       `
       SELECT *
-      FROM public.users
-      WHERE users.username = username;
+      FROM public.users as u
+      WHERE u.username = $1;
       `
       , [username]
     );
     userId = userId.rows[0].user_id;
+
     let postId = await db.query(
       `
       INSERT INTO public.posts (post_title, post_content, post_time, user_id)
@@ -106,5 +106,47 @@ dbController.makePost = async (req, res, next) => {
   } catch(err) {
     return next(err);
   };
+}
+dbController.deletePost = async (req, res, next) => {
+  const { post_id } = req.body;
+  try {
+    let ingredientId = await db.query(
+      `
+      SELECT ingredient_id
+      FROM public.recipe_ingredients as ri
+      WHERE ri.post_id = $1
+      `
+      , [post_id]
+    );
+    ingredientId = ingredientId.rows;
+    await db.query(
+      `
+      DELETE FROM public.recipe_ingredients
+      WHERE post_id = $1
+      `
+      , [post_id]
+    );
+    for (let i = 0; i < ingredientId.length; i ++) {
+      const data = ingredientId[i];
+      const { ingredient_id } = data;
+      await db.query(
+        `
+        DELETE FROM public.ingredients
+        WHERE ingredient_id = $1
+        `
+        , [ingredient_id]
+      );
+    }
+    await db.query(
+      `
+      DELETE FROM public.posts
+      WHERE post_id = $1
+      `
+      , [post_id]
+    );
+    return next();
+  } catch(err) {
+    return next(err);
+  }
 }
 module.exports = dbController;
