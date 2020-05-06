@@ -29,7 +29,7 @@ passport.use(
             WITH insert_cte AS (
               INSERT INTO public.google (google_id, name)
               VALUES ($1, $2)
-              ON CONFLICT (google_id, name) DO NOTHING
+              ON CONFLICT (google_id) DO NOTHING
               RETURNING google_id, name
             )
             SELECT google_id, name FROM insert_cte
@@ -37,7 +37,7 @@ passport.use(
             SELECT google_id, name FROM public.google
             WHERE google_id = $1
             LIMIT 1;
-            `
+           `
         )
         //else condition create new user
      }),
