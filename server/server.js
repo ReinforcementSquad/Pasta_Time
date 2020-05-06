@@ -9,7 +9,7 @@ const passport = require('passport');
 const PORT = 3000;
 
 const postRouter = require("./routes/posts.js");
-
+const userRouter = require("./routes/user-routes.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
@@ -28,7 +28,7 @@ app.use(passport.session());
 /* Endpoints */
 
 app.use("/posts", postRouter);
-
+app.use("/users", userRouter);
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/index.html'));
 });
