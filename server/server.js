@@ -16,10 +16,10 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 /* Cookie Session */
-// app.use(cookieSession({
-//   maxAge: 24 * 60 * 60 * 1000, // 24 hour cookie
-//   keys:[keys.session.cookieKey]
-// }));
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000, // 24 hour cookie
+  keys:[keys.session.cookieKey]
+}));
 
 /* Passport Initalize */
 app.use(passport.initialize());
