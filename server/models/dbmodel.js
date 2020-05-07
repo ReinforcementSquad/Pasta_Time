@@ -23,7 +23,6 @@ module.exports = {
       .where({ google_id: profileId })
       .first();
   },
-
   createUser: (profileId) => {
     return knex('google')
       .insert({ google_id: profileId });

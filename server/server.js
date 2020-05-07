@@ -36,9 +36,7 @@ app.get('/', (req, res) => {
 
 /* Routes */
 
-app.use('/auth', authRoutes, (req, res) => {
-  res.send('hey')
-});
+app.use('/auth', authRoutes);
 
 /* Global error handlers */
 
