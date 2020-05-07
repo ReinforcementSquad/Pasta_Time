@@ -1,16 +1,15 @@
 import * as types from '../actionTypes/actionTypes';
 
 const initialState = {
-  recipes: null
+  recipes: []
 };
 
-async function reducer(state = initialState, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
     case types.GET_RECIPES:
-      await Promise.resolve(fetch('/posts/getPosts')
-        .then((res) => res.json())
-        .then(({ posts }) => { return { ...state, ...{ recipes: posts } } }));
-      break;
+      const newState = Object.assign({}, state);
+      newState.recipes = action.payload.recipes
+      return newState;
     default:
       return state;
   }

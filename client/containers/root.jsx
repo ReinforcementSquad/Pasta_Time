@@ -1,9 +1,10 @@
-import React, { Components } from 'react';
+import React, { Components, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { getRecipes } from '../actions/actions';
 import LoginLink from '../components/loginLink.jsx';
 
 function Root(props) {
+  console.log(props.recipes);
   const recipes = [];
   for (let i = 0; i < props.recipes.length; i++) {
     recipes.push(<div>{ props.recipes[i].title }</div>);
@@ -17,7 +18,7 @@ function Root(props) {
 }
 
 function mapStateToProps(state) {
-  return { recipes: state.recipes };
+  return { recipes: state.reducer.recipes };
 }
 
 function mapDispatchToProps(dispatch) {
